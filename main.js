@@ -3,11 +3,11 @@
  */
 
 // 初始化大数
-const Decimal = Decimal || window.Decimal; // 假设 break_infinity.js 暴露了 Decimal
+const DecimalLib = window.Decimal; 
 
 class GameState {
     constructor() {
-        this.mass = new Decimal(0);
+        this.mass = new DecimalLib(0);
         this.totalRotations = 0;
         this.angularVelocity = 0; // 当前角速度
         this.angle = 0; // 当前角度 (弧度)
@@ -20,13 +20,13 @@ class GameState {
         this.upgrades = {
             manualSpin: {
                 level: 0,
-                baseCost: new Decimal(10),
+                baseCost: new DecimalLib(10),
                 costMultiplier: 1.5,
                 power: 0.5
             },
             autoSpin: {
                 level: 0,
-                baseCost: new Decimal(50),
+                baseCost: new DecimalLib(50),
                 costMultiplier: 1.8,
                 power: 0.1
             }
@@ -149,7 +149,7 @@ function drawWheel() {
 function processSlot(slotIndex) {
     const slot = state.slots[slotIndex];
     if (slot.type === 'resource') {
-        const gain = new Decimal(1).times(Math.pow(1.05, state.totalRotations));
+        const gain = new DecimalLib(1).times(Math.pow(1.05, state.totalRotations));
         state.mass = state.mass.plus(gain);
         log(`命中[${slot.name}]，获得 ${formatNumber(gain)} 质量`);
     } else if (slot.type === 'compound') {
