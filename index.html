@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>奇点之轮 - The Singularity Wheel</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入 break_infinity.js -->
+    <script src="https://cdn.jsdelivr.net/npm/break_infinity.js@2/dist/break_infinity.min.js"></script>
+</head>
+<body>
+    <div id="game-container">
+        <header>
+            <h1>🌌 奇点之轮</h1>
+            <div class="resource-display">
+                <span class="label">宇宙质量 M: </span>
+                <span id="mass-value">0</span>
+            </div>
+            <div class="stats">
+                <span id="rotation-count">总圈数: 0</span>
+            </div>
+        </header>
+
+        <main>
+            <div class="wheel-area">
+                <div id="wheel-container">
+                    <canvas id="wheel-canvas" width="500" height="500"></canvas>
+                    <div id="pointer">▼</div>
+                </div>
+                <button id="spin-btn">手动推一把</button>
+            </div>
+
+            <sidebar id="upgrades">
+                <section class="upgrade-group">
+                    <h2>升级中心</h2>
+                    <div id="upgrade-list">
+                        <!-- 动态生成的升级项 -->
+                    </div>
+                </section>
+            </sidebar>
+        </main>
+
+        <footer>
+            <div id="log">
+                <p>欢迎来到奇点之轮...</p>
+            </div>
+        </footer>
+    </div>
+    <script src="main.js"></script>
+</body>
+</html>
