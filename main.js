@@ -121,10 +121,18 @@ function drawWheel() {
         ctx.beginPath();
         ctx.moveTo(cx, cy);
         ctx.arc(cx, cy, radius, startA, endA);
-        ctx.fillStyle = slot.color;
+        
+        // 根据主题调整颜色
+        if (document.body.getAttribute('data-theme') === 'work') {
+            ctx.fillStyle = (i % 2 === 0) ? '#ddd' : '#bbb';
+            ctx.strokeStyle = '#999';
+        } else {
+            ctx.fillStyle = slot.color;
+            ctx.strokeStyle = '#fff2';
+        }
+        
         ctx.fill();
         ctx.lineWidth = 2;
-        ctx.strokeStyle = '#fff2';
         ctx.stroke();
 
         // 绘制文字
@@ -132,16 +140,17 @@ function drawWheel() {
         ctx.translate(cx, cy);
         ctx.rotate(startA + sliceAngle / 2);
         ctx.textAlign = 'right';
-        ctx.fillStyle = '#fff';
+        ctx.fillStyle = document.body.getAttribute('data-theme') === 'work' ? '#333' : '#fff';
         ctx.font = '14px Arial';
         ctx.fillText(slot.name, radius - 20, 5);
         ctx.restore();
     });
 
     // 装饰外圈
+    const wheelStrokeColor = getComputedStyle(document.documentElement).getPropertyValue('--wheel-stroke').trim();
     ctx.beginPath();
     ctx.arc(cx, cy, radius + 10, 0, Math.PI * 2);
-    ctx.strokeStyle = '#7d5fff';
+    ctx.strokeStyle = wheelStrokeColor || '#7d5fff';
     ctx.lineWidth = 5;
     ctx.stroke();
 }
@@ -228,6 +237,29 @@ document.getElementById('spin-btn').addEventListener('click', () => {
     const power = 1 + state.upgrades.manualSpin.level * state.upgrades.manualSpin.power;
     state.angularVelocity += power;
 });
+
+// 设置界面逻辑
+const settingsBtn = document.getElementById('settings-btn');
+const settingsModal = document.getElementById('settings-modal');
+const closeSettings = document.getElementById('close-settings');
+const themeSelect = document.getElementById('theme-select');
+
+settingsBtn.onclick = () => settingsModal.style.display = 'block';
+closeSettings.onclick = () => settingsModal.style.display = 'none';
+window.onclick = (event) => {
+    if (event.target == settingsModal) settingsModal.style.display = 'none';
+};
+
+themeSelect.onchange = (e) => {
+    const theme = e.target.value;
+    if (theme === 'work') {
+        document.body.setAttribute('data-theme', 'work');
+        log("主题已切换为：简约办公");
+    } else {
+        document.body.removeAttribute('data-theme');
+        log("主题已切换为：深空奇点");
+    }
+};
 
 // 启动
 requestAnimationFrame(gameLoop);

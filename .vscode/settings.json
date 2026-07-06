@@ -1,0 +1,8 @@
+{
+  "chat.tools.terminal.autoApprove": {
+    "/^git add \\. ; git commit -m \"Feat: add settings modal and 'Work' \\(black/white/grey\\) theme for office environment\" ; git push$/": {
+      "approve": true,
+      "matchCommandLine": true
+    }
+  }
+}

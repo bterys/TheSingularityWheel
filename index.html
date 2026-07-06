@@ -27,7 +27,10 @@
                     <canvas id="wheel-canvas" width="500" height="500"></canvas>
                     <div id="pointer">▼</div>
                 </div>
-                <button id="spin-btn">手动推一把</button>
+                <div class="controls">
+                    <button id="spin-btn">手动推一把</button>
+                    <button id="settings-btn">⚙️ 设置</button>
+                </div>
             </div>
 
             <sidebar id="upgrades">
@@ -47,5 +50,20 @@
         </footer>
     </div>
     <script src="main.js"></script>
+
+    <!-- 设置弹窗 -->
+    <div id="settings-modal" class="modal">
+        <div class="modal-content">
+            <h2>游戏设置</h2>
+            <div class="setting-item">
+                <label>视觉主题:</label>
+                <select id="theme-select">
+                    <option value="default">深空奇点 (默认)</option>
+                    <option value="work">简约办公 (黑白灰)</option>
+                </select>
+            </div>
+            <button id="close-settings">确认</button>
+        </div>
+    </div>
 </body>
 </html>
