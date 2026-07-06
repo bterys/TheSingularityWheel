@@ -237,30 +237,33 @@ document.getElementById('spin-btn').addEventListener('click', () => {
     const power = 1 + state.upgrades.manualSpin.level * state.upgrades.manualSpin.power;
     state.angularVelocity += power;
 });
+// 启动逻辑
+window.addEventListener('load', () => {
+    // 设置界面逻辑
+    const settingsBtn = document.getElementById('settings-btn');
+    const settingsModal = document.getElementById('settings-modal');
+    const closeSettings = document.getElementById('close-settings');
+    const themeSelect = document.getElementById('theme-select');
 
-// 设置界面逻辑
-const settingsBtn = document.getElementById('settings-btn');
-const settingsModal = document.getElementById('settings-modal');
-const closeSettings = document.getElementById('close-settings');
-const themeSelect = document.getElementById('theme-select');
+    if (settingsBtn && settingsModal && closeSettings && themeSelect) {
+        settingsBtn.onclick = () => settingsModal.style.display = 'block';
+        closeSettings.onclick = () => settingsModal.style.display = 'none';
+        window.onclick = (event) => {
+            if (event.target == settingsModal) settingsModal.style.display = 'none';
+        };
 
-settingsBtn.onclick = () => settingsModal.style.display = 'block';
-closeSettings.onclick = () => settingsModal.style.display = 'none';
-window.onclick = (event) => {
-    if (event.target == settingsModal) settingsModal.style.display = 'none';
-};
-
-themeSelect.onchange = (e) => {
-    const theme = e.target.value;
-    if (theme === 'work') {
-        document.body.setAttribute('data-theme', 'work');
-        log("主题已切换为：简约办公");
-    } else {
-        document.body.removeAttribute('data-theme');
-        log("主题已切换为：深空奇点");
+        themeSelect.onchange = (e) => {
+            const theme = e.target.value;
+            if (theme === 'work') {
+                document.body.setAttribute('data-theme', 'work');
+                log("主题已切换为：简约办公");
+            } else {
+                document.body.removeAttribute('data-theme');
+                log("主题已切换为：深空奇点");
+            }
+        };
     }
-};
 
-// 启动
-requestAnimationFrame(gameLoop);
-log("核心系统加载完成。通过手动点击或升级来累积宇宙质量。");
+    requestAnimationFrame(gameLoop);
+    log("核心系统加载完成。通过手动点击或升级来累积宇宙质量。");
+});
